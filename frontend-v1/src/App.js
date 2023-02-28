@@ -15,6 +15,30 @@ import { useUser } from './UserProvider';
 
 function App() {
 
+
+  console.log("Hello");
+
+  const reqBody = {
+    username: "ruben",
+    password: "asdasd",
+  };
+
+  fetch("/api/auth/login", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    body: JSON.stringify(reqBody),
+  })
+    .then((response) => Promise.all([response.json(), response.headers]))
+    .then(([body, headers]) => {
+      const authValue = headers.get("authorization");
+      console.log(authValue);
+      console.log(body);
+    });
+
+  console.log("Hello");
+
   //const [jwt, setJwt] = useLocalState("", "jwt");
   const [roles, setRoles] = useState([]);
   const user = useUser();
